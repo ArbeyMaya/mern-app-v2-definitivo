@@ -61,6 +61,9 @@ function login(req, res) {
 
 function refreshAccessToken(req, res) {
     const { token } = req.body
+
+    if(!token) res.status(400).send({msg: "Error token requerido"})
+
     const { user_id } = jwt.decoded(token)
 
     User.findOne({ _id: user_id }, (error, userStorage) => {
